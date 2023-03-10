@@ -1,4 +1,4 @@
-const gallery = document.querySelector('');
+const gallery = document.querySelector('.gallery');
 
 export function createCard(cards) {
   const markup = cards
@@ -6,30 +6,30 @@ export function createCard(cards) {
       const {
         webformatURL,
         largeImageURL,
+        tags,
         likes,
         views,
         comments,
         downloads,
-        tags,
         id,
       } = card;
-      return `<a class="card-gall" href="${largeImageURL}">
-            <div class="card-item" id="${id}">
+      return `<a class="gallery-item" href="${largeImageURL}">
+            <div class="photo-card" id="${id}">
                 <img class = "image" src="${webformatURL}" alt="${tags}" loading="lazy"/>
-                <div class="description">
-                    <p class="item-info">
+                <div class="info">
+                    <p class="info-item">
                         <b>likes:</b> 
                         ${likes}
                     </p>
-                    <p class="item-info">
+                    <p class="info-item">
                         <b>views:</b> 
                         ${views}
                     </p>
-                    <p class="item-info">
+                    <p class="info-item">
                         <b>comments:</b>
                         ${comments}
                     </p>
-                    <p class="item-info">
+                    <p class="info-item">
                         <b>downloads:</b>
                         ${downloads}
                     </p>
@@ -38,4 +38,5 @@ export function createCard(cards) {
         </a>`;
     })
     .join('');
+  gallery.insertAdjacentHTML('beforeend', markup);
 }
