@@ -13,20 +13,26 @@ body {
     line-height: 1.5;
 }
 
-input {
-    padding: 8px;
-    font: inherit;
-}
-
 button {
-    padding: 8px 12px;
+    padding: 6px 12px;
     cursor: pointer;
+    border: thick double #32a1ce;
+    border-radius: 10px;
 }
 
-:root {
-    --timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    --animation-duration: 250ms;
+.input {
+    padding: 6px;
+    font: inherit;
+    border: thick double #32a1ce;
+    border-radius: 10px;
+    font-size: 12px;
 }
+
+.input:focus {
+    border: thick double #b3deef;
+    ;
+}
+
 
 .gallery {
     display: grid;
