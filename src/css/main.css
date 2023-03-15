@@ -49,7 +49,25 @@ p {
 }
 
 .search-btn:hover,
-.search-btn:focus {
+.search-btn:focus,
+.btn-add-load:hover,
+.btn-add-load:focus {
+    background-color: #041d42;
+    color: #e6f0ff;
+    transition: all 0.3s;
+}
+
+.hidden {
+    display: none;
+}
+
+.btn-add-load {
+    display: block;
+    margin: 20px auto 0 auto;
+    padding: 8px 20px;
+    border: thick double #8db0e4;
+    border-radius: 10px;
+    cursor: pointer;
     background-color: #041d42;
     color: #e6f0ff;
     transition: all 0.3s;
