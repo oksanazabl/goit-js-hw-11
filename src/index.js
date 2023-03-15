@@ -1,23 +1,26 @@
 import './css/main.css';
-import { fetch } from './js/fetch';
-import { createCard } from './js/markup';
-import Notiflix from 'notiflix';
+import { searchForm, gallery, btnAddLoad } from './js/const';
+import { fetch } from './js/fetch_func';
+import {
+  alertFound,
+  alertEmptySearch,
+  alertNoSuchImages,
+  alertEndSearch,
+} from './js/alert';
+import { createCard } from './js/createCard';
+
 // Описаний в документації
 import SimpleLightbox from 'simplelightbox';
 // Додатковий імпорт стилів
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
-const searchForm = document.querySelector('#search-form');
-const gallery = document.querySelector('.gallery');
-const btnLoadMore = document.querySelector('.btn-add-load');
-
-searchForm.addEventListener('submit', onSearchForm);
-btnLoadMore.addEventListener('click', onBtnLoadMore);
-
+let q = '';
 let page = 1;
 let simpleLightBox;
-let q = '';
 const perPage = 40;
+
+searchForm.addEventListener('submit', onSearchForm);
+btnAddLoad.addEventListener('click', onLoadMore);
 
 function onSearchForm(e) {
   e.preventDefault();
@@ -25,15 +28,48 @@ function onSearchForm(e) {
   page = 1;
   q = e.currentTarget.searchQuery.value.trim();
   gallery.innerHTML = '';
-  //   btnLoadMore.classList.add('hidden');
+  btnAddLoad.classList.add('hidden');
 
   if (q === '') {
-    alertNoEmptySearch();
+    alertEmptySearch();
     return;
   }
+
+  fetch(q, page, perPage)
+    .then(({ data }) => {
+      if (data.totalHits === 0) {
+        alertNoSuchImages();
+      } else {
+        createCard(data.hits);
+        simpleLightBox = new SimpleLightbox('.gallery').refresh();
+        alertFound(data);
+
+        if (data.totalHits > perPage) {
+          btnAddLoad.classList.remove('hidden');
+        }
+      }
+    })
+    .catch(error => console.log(error))
+    .finally(() => {
+      searchForm.reset();
+    });
 }
 
-function onBtnLoadMore() {
+function onLoadMore() {
   page += 1;
   simpleLightBox.destroy();
+
+  fetch(q, page, perPage)
+    .then(({ data }) => {
+      createCard(data.hits);
+      simpleLightBox = new SimpleLightbox('.gallery a').refresh();
+
+      const pagesTotal = Math.ceil(data.totalHits / perPage);
+
+      if (page > pagesTotal) {
+        btnAddLoad.classList.add('hidden');
+        alertEndSearch();
+      }
+    })
+    .catch(error => console.log(error));
 }

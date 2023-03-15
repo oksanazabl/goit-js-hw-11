@@ -57,7 +57,7 @@ p {
     transition: all 0.3s;
 }
 
-.hidden {
+.btn-add-load.hidden {
     display: none;
 }
 
@@ -68,8 +68,8 @@ p {
     border: thick double #8db0e4;
     border-radius: 10px;
     cursor: pointer;
-    background-color: #041d42;
-    color: #e6f0ff;
+    background-color: #e6f0ff;
+
     transition: all 0.3s;
 }
 
@@ -87,43 +87,60 @@ p {
     ;
 }
 
+.gallery-container {
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 25px;
+}
 
 .gallery {
-    display: grid;
-    max-width: 1140px;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    grid-auto-rows: 240px;
-    grid-gap: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -20px;
+    padding-top: 60px;
     justify-content: center;
-    padding: 0;
-    list-style: none;
-    margin-left: auto;
-    margin-right: auto;
+
 }
 
 .gallery__item {
-    position: relative;
-    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2),
-        0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
+    margin-top: 20px;
+    margin-left: 20px;
+    min-width: 320px;
+    flex-basis: calc((100% - 80px) / 4);
+    border: 2px solid rgb(241, 238, 238);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all 0.3s;
 }
 
-/* .gallery__image:hover {
-    transform: scale(1.03);
+.gallery__item:hover {
+    transform: scale(1.05);
 }
 
-.gallery__image {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-    transition: transform var(--animation-duration) var(--timing-function);
+.photo-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
 }
 
-.gallery__link {
+.image {
     display: block;
-    text-decoration: none;
-    height: 100%;
+    height: 30vh;
+    object-fit: cover;
 }
 
-.gallery__link:hover {
-    cursor: zoom-in;
-} */
+.info {
+    padding: 10px;
+    justify-content: space-around;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: rgb(255, 255, 255);
+}
+
+.info-item:not(:first-child) {
+    margin-left: 10px;
+}
